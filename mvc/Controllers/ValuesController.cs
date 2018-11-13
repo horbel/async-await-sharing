@@ -41,13 +41,8 @@ namespace mvc.Controllers
 
         private async Task<int> SomeMethodAsync()
         {
-            await Task.Delay(1000).ConfigureAwait(false);
-
-            throw new MyException("alo, mi ypali!!");
-
+            await Task.Delay(1000);
             return 100500;
-        }
-
-        
+        } 
     }
 }

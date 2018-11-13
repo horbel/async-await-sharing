@@ -1,35 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace mvc.Controllers
 {
     public class Values2Controller : ApiController
     {
-        /*/
-        [HttpGet] 
-        public async Task<int> Get()
-        {
-            Debug.WriteLine($"before await: {Thread.CurrentThread.ManagedThreadId}");
-
-            var currentContextBefore = HttpContext.Current.Server;
-
-            var res = await SomeMethodAsync();
-
-            //var currentContext = HttpContext.Current.Server;
-            Debug.WriteLine($"before await: {Thread.CurrentThread.ManagedThreadId}");
-
-            return res;
-        }
-
-        /*/
         [HttpGet]
         public int Get()
         {
@@ -37,20 +13,27 @@ namespace mvc.Controllers
             return res;
         }
 
-        //*/
-
-        private async void DoSomeWorkAsync()
+        private async Task<int> SomeMethodAsync()
         {
             await Task.Delay(1000).ConfigureAwait(false);
-
-            throw new MyException("alo, mi ypali!!");
+          
+            return 100500;
         }
 
 
+        private async void DoSomeWorkAsync()
+        {
+            await Task.Delay(1000);
+            throw new MyException("bla bla");
+        }
     }
 
     public class MyException : Exception
     {
+        public MyException(string mess) : base(mess)
+        {
 
+        }
     }
+    //TODO: throw exception. sync and async flows. task/void. result vs awaiter. async in Action  
 }
