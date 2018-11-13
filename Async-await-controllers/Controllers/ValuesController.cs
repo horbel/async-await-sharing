@@ -14,7 +14,7 @@ namespace Async_await_controllers.Controllers
         [HttpGet]
         public string Get()
         {
-            var a = HttpContext;
+            //var a = HttpContext;
             Thread.Sleep(1000);
             return "value";
         }

@@ -12,7 +12,12 @@ namespace Decomp1
     {
         static void Main(string[] args)
         {
-            FooAsync().Wait();
+            MainAsync().GetAwaiter().GetResult();
+        }
+
+        static async Task MainAsync()
+        {
+            await FooAsync();
 
             Console.WriteLine("\nPress any key to continue....");
             Console.ReadKey();
@@ -27,12 +32,10 @@ namespace Decomp1
 
         public static void M1()
         {
-            
         }
 
         public static void M2()
         {
-
         }
 
         public static async Task BarAsync()

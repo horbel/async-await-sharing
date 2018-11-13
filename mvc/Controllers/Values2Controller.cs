@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -6,17 +7,59 @@ namespace mvc.Controllers
 {
     public class Values2Controller : ApiController
     {
-        [HttpGet]
+        //public int Get()
+        //{
+        //    var res = 0;
+        //    try
+        //    {
+        //        res = SomeMethodAsync().Result;
+        //    }
+        //    catch (MyException ex)
+        //    {
+        //        Debug.WriteLine("ya tebya slovil!");
+        //    }
+
+        //    return res;
+        //}
+
+        //public int Get()
+        //{
+        //    var res = 0;
+        //    try
+        //    {
+        //        res = SomeMethodAsync().GetAwaiter().GetResult();
+        //    }
+        //    catch (MyException ex)
+        //    {
+        //        Debug.WriteLine("ya tebya slovil!");
+        //    }
+
+        //    return res;
+        //}
+
         public int Get()
         {
-            var res = SomeMethodAsync().Result;
+            var res = 0;
+            try
+            {
+                DoSomeWorkAsync();
+            }
+            catch (MyException ex)
+            {
+                Debug.WriteLine("ya tebya slovil!");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ya tebya tochno slovil");
+            }
+
             return res;
         }
 
         private async Task<int> SomeMethodAsync()
         {
             await Task.Delay(1000).ConfigureAwait(false);
-          
+            throw new MyException("bla bla");
             return 100500;
         }
 
