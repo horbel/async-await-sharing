@@ -14,7 +14,7 @@ namespace mvc.Controllers
     public class Values2Controller : ApiController
     {
         /*/
-        [HttpGet]
+        [HttpGet] 
         public async Task<int> Get()
         {
             Debug.WriteLine($"before await: {Thread.CurrentThread.ManagedThreadId}");
