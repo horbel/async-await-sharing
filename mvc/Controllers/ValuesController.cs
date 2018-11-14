@@ -13,18 +13,17 @@ namespace mvc.Controllers
 {
     public class ValuesController : ApiController
     {
-        /*/
+        //*/
         [HttpGet]
         public async Task<int> Get()
         {
-            Debug.WriteLine($"before await: {Thread.CurrentThread.ManagedThreadId}");
-
+            Debug.WriteLine($"Get before await: {Thread.CurrentThread.ManagedThreadId}");
             var currentContextBefore = HttpContext.Current.Server;
 
             var res = await SomeMethodAsync();
 
-            //var currentContext = HttpContext.Current.Server;
-            Debug.WriteLine($"before await: {Thread.CurrentThread.ManagedThreadId}");
+            var currentContextAfter = HttpContext.Current.Server;
+            Debug.WriteLine($"Get after await: {Thread.CurrentThread.ManagedThreadId}");
 
             return res;
         }
@@ -42,7 +41,9 @@ namespace mvc.Controllers
 
         private async Task<int> SomeMethodAsync()
         {
+            Debug.WriteLine($"SomeMethodAsync before await: {Thread.CurrentThread.ManagedThreadId}");
             await Task.Delay(1000);
+            Debug.WriteLine($"SomeMethodAsync after await: {Thread.CurrentThread.ManagedThreadId}");
             return 100500;
         } 
     }

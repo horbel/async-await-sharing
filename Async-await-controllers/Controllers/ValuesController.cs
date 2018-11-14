@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +15,6 @@ namespace Async_await_controllers.Controllers
         [HttpGet]
         public string Get()
         {
-            //var a = HttpContext;
             Thread.Sleep(1000);
             return "value";
         }
@@ -22,8 +22,18 @@ namespace Async_await_controllers.Controllers
         [HttpGet("async")]
         public async Task<string> GetAsync()
         {
-            await Task.Delay(1000);
+            Debug.WriteLine($"GetAsync before await: {Thread.CurrentThread.ManagedThreadId}");
+            await SomeMethodAsync();
+            Debug.WriteLine($"GetAsync after await: {Thread.CurrentThread.ManagedThreadId}");
+            //await Task.Delay(1000);
             return "value async";
+        }
+
+        private async Task SomeMethodAsync()
+        {
+            Debug.WriteLine($"SomeMethodAsync before await: {Thread.CurrentThread.ManagedThreadId}");
+            await Task.Delay(1000);
+            Debug.WriteLine($"SomeMethodAsync after await: {Thread.CurrentThread.ManagedThreadId}");
         }
     }
 }
